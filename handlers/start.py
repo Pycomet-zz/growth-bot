@@ -82,12 +82,10 @@ def startTool(msg):
     # SESSION_USERS = [sessions[i]['first_name'] for i in range(sessions.count())]
     # NEW VERSION SESSION STRINGS
     SESSIONS = [
-        '1AZWarzQBu5dHKdZmSY6Sj8Bmn5hkCHCY5Ty_BHmG5PspeTrRIdXTt2Lafgdw1PQnjQDPTmcEcD5gWMhVzjdHzDPESMmJu1ErvvDRXv6JMcz_X-7q6OjqKlaJagrIghocLsm1VLHzOm2qkKbGRvGrXxKMMiJarjqmGHP17aAoYJ1gjXrv6v0WEeDhaYgpmmtVjr2YCS8hpUg64bUmow0j4vn4MzPtC6Qz5gMy_7iRplHycUdR73S_p7PIuEltzn5h51Hb8Lg5mvIjaenkuacVYGtWbXk0l1qDuaid823EVvoZkNuTzeX9FoGFUXRhV4WkcTGN4WC9pidSSDD9rnc6FV7JjvtwrHk=',
-        '1AZWarzQBu3XiqxzZCLgUdB6cshQ-IAVQHDaLo9v6Mg-VgfnXw0ZLmDgB9v0bzoMlc0LqZKjuohJOhm2nC9SDx0Ht3tOqOHbsGWPpmxwLU_iTg3rUG-_8a3rU6VphR9r5rTapmyxwPa9p81D13Bk5SeMGtRtgGM7m_3aybD4MCuk5ArTyMXM7I8WB5z2hrFYGbFO5Iwbg5Qp-sL9YM9mauaw-1TBbx1Jf26zmlNtUKu6kXr2sE2KJzP61lIGnFu--p2229YZigA1WTf7IzeZ5vQmdc1nmD1xUpS9hT8jYGIm9TfMfkKmprV83H4lQaMt3XRxkdGvCgEDnAC0OMRCsnHBRkA7ljNs=',
+
     ]
     SESSION_USERS = [
         'Client 1',
-        'Client 2',
     ]
 
     # # Target group admins
