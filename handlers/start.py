@@ -84,7 +84,7 @@ def startTool(msg):
     # SESSION_USERS = [sessions[i]['first_name'] for i in range(sessions.count())]
     # NEW VERSION SESSION STRINGS
     SESSIONS = [
-
+        '1AZWarzwBuwf9GpPQlRjEvFMF5KC_2voJyZQiS-aH00xqqP4tPsqrbUVvjpTwhlm0t4dY34_S0e4_RLHox_3voViXl0vtqWUWE4bAsl6jQVHpY3rdRhxhksh-eMnfgwSgi82HPkm8QdArqTAGNy1dLPur5pPzXOHCkEIIVDuFTOUy32cy8A1lzHvEpbdPAcLUaUTAA4R9CyEDWm7WBToKGt-FK7YrUxCVITla0giIG9BIpf5qGPhNl_VCoxXAOZ0H9u2ddqO7gri2yWeyA1O6hFAfuhu5FsW0-N2bljidWAB6JEU9xpH6wBGPiNzxerAcp9SHkB_vjXLJHhxUzQIAu3nrSMQnrc8=',
     ]
     SESSION_USERS = [
         'Client 1',
