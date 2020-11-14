@@ -77,6 +77,8 @@ def startTool(msg):
         )
     )
 
+
+
     # Collect all Session Strings
     # SESSIONS = [sessions[i]['SessionString'] for i in range(sessions.count())]
     # SESSION_USERS = [sessions[i]['first_name'] for i in range(sessions.count())]
