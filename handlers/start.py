@@ -85,11 +85,9 @@ def startTool(msg):
     # NEW VERSION SESSION STRINGS
     SESSIONS = [
         '1AZWarzwBuwf9GpPQlRjEvFMF5KC_2voJyZQiS-aH00xqqP4tPsqrbUVvjpTwhlm0t4dY34_S0e4_RLHox_3voViXl0vtqWUWE4bAsl6jQVHpY3rdRhxhksh-eMnfgwSgi82HPkm8QdArqTAGNy1dLPur5pPzXOHCkEIIVDuFTOUy32cy8A1lzHvEpbdPAcLUaUTAA4R9CyEDWm7WBToKGt-FK7YrUxCVITla0giIG9BIpf5qGPhNl_VCoxXAOZ0H9u2ddqO7gri2yWeyA1O6hFAfuhu5FsW0-N2bljidWAB6JEU9xpH6wBGPiNzxerAcp9SHkB_vjXLJHhxUzQIAu3nrSMQnrc8=',
-        '1AZWarzwBu0xruxucIY61DiKDceN5xVmXc1E6yYkMvmXCeeW2rQVSTF3U39ShQcTQIsbcXiqhL9hm8vOOUydJhMHNVmYHBy2CwIkFminQcEiDNCF2RVZAocn3FHEcwnS6WwMHBzN942M-_ckbh-V81deuSjz7nDW_ngu7KXGK4POmJiBoyBqW6W-hmvYLazDv1iskkTxpFRS0PhPp5FYyjYDGWQCc6kTFe3rafW_ZGtmv5TwiOD6tjqEMQOxYWK2K5czFyNlDklzGaPvRkjvBR-yq6OBs_C_oRbNXDEU2enith-YHbi1WKiDKTEiBGXBvYgxpnk2busJXOwfo0IGQuWBaFz90yC0=',
     ]
     SESSION_USERS = [
         'Client 1',
-        'Client 2'
     ]
 
     # # Target group admins
