@@ -2,7 +2,7 @@ import os
 from decouple import config
 import time
 import random
-## BOT CONFIGURATION
+# BOT CONFIGURATION
 from flask import Flask, request
 import telebot
 from telebot import types
@@ -24,6 +24,9 @@ DEBUG = False
 GROUP = config("GROUP")
 
 
+client = MongoClient(config("MONGO_URI"))
+
+
 API_ID = config("API_ID")
 API_HASH = config("API_HASH")
 
@@ -38,9 +41,7 @@ TOKEN = config("TOKEN")
 
 SERVER_URL = config("SERVER_URL")
 
-ADMINS = [config("ADMIN1")]
+ADMINS = [int(config("ADMIN"))]
 
 bot = telebot.TeleBot(TOKEN)
 server = Flask(__name__)
-
- 

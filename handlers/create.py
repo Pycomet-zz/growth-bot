@@ -1,10 +1,12 @@
 from config import *
-from functions import register_session
+from functions import add_session
 
 markup = types.ForceReply(selective=False)
 
 client = ""
 phone = ""
+code = ""
+
 
 @bot.message_handler(commands=['create', 'add'])
 def create(msg):
@@ -30,8 +32,8 @@ def create(msg):
             msg,
             emoji.emojize(
                 ":warning: Sorry but you are not allowed to use this tool. Contact @codefred to get started.",
-                use_aliases=True
-                )
+                language='alias'
+            )
         )
 
 
@@ -40,51 +42,83 @@ def generate_session(msg):
     Generates The New Session With Phone Number
     """
 
-    global client 
+    global client
     global phone
     phone = msg.text
 
     loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
 
-    client = TelegramClient(StringSession(), API_ID, API_HASH, loop=loop)
+    client = TelegramClient(StringSession(''), API_ID, API_HASH, loop=loop).start(
+        phone=phone,
+        force_sms=True,
+        code_callback=input("Enter code ?"),
+    )
 
-    client.loop.run_until_complete(client.connect())
+    user = client.loop.run_until_complete(client.get_me())
 
-    authorized = client.loop.run_until_complete(client.is_user_authorized())
+    import pdb
+    pdb.set_trace()
 
-    if authorized == False:
-        ask = client.loop.run_until_complete(
-            client.send_code_request(
-                phone = msg.text,
-            )
-        )
+    string = client.loop.run_until_complete(client.session.save())
 
+    result = add_session(
+        user=user,
+        string=string
+    )
+
+    bot.send_message(
+        msg.from_user.id,
+        f"You have successfully added {result} session - {string} to the database"
+    )
+
+    # authorized = client.loop.run_until_complete(client.is_user_authorized())
+
+    # if authorized == False:
+    #     ask = client.loop.run_until_complete(
+    #         client.send_code_request(
+    #             phone=msg.text,
+    #         )
+    #     )
+
+    #     question = bot.send_message(
+    #         msg.from_user.id,
+    #         f"What is the code you received?",
+    #         reply_markup=markup
+    #     )
+
+    #     me = client.sign_in(phone_number, input('Enter code: '))
+
+    #     bot.register_next_step_handler(question, get_code)
+
+    #     return client, phone
+
+
+def code_callback(msg):
+
+    global code
+    while code == "":
 
         question = bot.send_message(
             msg.from_user.id,
             f"What is the code you received?",
             reply_markup=markup
         )
-
-        me = client.sign_in(phone_number, input('Enter code: '))
-
         bot.register_next_step_handler(question, get_code)
-
-        return client, phone
-
-
 
 
 def get_code(msg):
     "Registers The Authentication Code"
+    global code
 
     code = msg.text
-    
+    return code
+
     try:
         client.loop.run_until_complete(
             client.sign_in(
-                phone = phone,
-                code = code
+                phone=phone,
+                code=code
             )
         )
 
@@ -92,16 +126,15 @@ def get_code(msg):
 
         string = client.loop.run_until_complete(client.session.save())
 
-        result = register_session(
-            user = user,
-            string = string
+        result = add_session(
+            user=user,
+            string=string
         )
 
         bot.send_message(
             msg.from_user.id,
             "You have successfully added {result} session - {string} to the database"
         )
-
 
     except Exception as e:
 

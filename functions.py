@@ -1,9 +1,10 @@
+import string
 from config import *
+from telethon.tl.types import PeerChat
 from telethon.tl.functions.messages import AddChatUserRequest
 from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.functions.channels import JoinChannelRequest
 from telethon.errors.rpcerrorlist import UserPrivacyRestrictedError, PeerFloodError, UserNotMutualContactError, UserChannelsTooMuchError
-
 
 
 def check_user(user):
@@ -56,14 +57,14 @@ async def add_users(bot, client, target, start, message_id, runner):
         offset = 0
         group = await client.get_entity(GROUP)
 
-        join = await join_group(client=client, group=group)
+        await join_group(client=client, group=group)
 
         async for member in client.iter_participants(target):
 
             if start > offset:
                 offset += 1
                 pass
-            
+
             else:
                 user = check_user(user=member)
 
@@ -79,13 +80,13 @@ async def add_users(bot, client, target, start, message_id, runner):
 
                         # update count
                         bot.edit_message_text(
-                            chat_id = ADMINS[0],
-                            message_id = message_id,
-                            text = emoji.emojize(
+                            chat_id=ADMINS[0],
+                            message_id=message_id,
+                            text=emoji.emojize(
                                 f"<b>:rocket: {runner} added {added} new users to the group. And has {stopped} failed attempts</b>",
-                                use_aliases=True
+                                language='alias'
                             ),
-                            parse_mode = "html",
+                            parse_mode="html",
                         )
                         time.sleep(random.choice(range(3, 5)))
 
@@ -97,17 +98,17 @@ async def add_users(bot, client, target, start, message_id, runner):
                         pass
 
                     except PeerFloodError as e:
-            
+
                         stopped += 1
 
                         bot.edit_message_text(
-                            chat_id = ADMINS[0],
-                            message_id = message_id,
-                            text = emoji.emojize(
+                            chat_id=ADMINS[0],
+                            message_id=message_id,
+                            text=emoji.emojize(
                                 f"<b>:rocket: {runner} added {added} new users to the group, with {stopped} failed attempts. Cooling Down For 30 seconds!!!</b>",
-                                use_aliases=True
+                                language='alias'
                             ),
-                            parse_mode = "html",
+                            parse_mode="html",
                         )
 
                         time.sleep(30)
@@ -119,31 +120,31 @@ async def add_users(bot, client, target, start, message_id, runner):
                     except Exception as e:
                         stopped += 1
                         pass
-        
+
         # After adding All The Users
         condition = False
         return "Done"
-                
 
 
+def fetch_sessions() -> list:
+    "Get All (Name, Session) from Db"
+    response = client['tool_database']['sessions'].find({})
+    data = [(each['FirstName'], each['SessionString'])
+            for each in response if each['Active'] == True]
+    return data
 
 
-def register_session(user, string):
-    """
-    Adding A New Session String To The Database
-    """
-    sessions = db.sessions
-
+def add_session(user, string) -> str:
+    "Adding A New Session String To The Database"
     # Send Session To DB
     post_data = {
         'id': user.id,
         'Owner': user.username,
-        'first_name': user.first_name,
+        'FirstName': user.first_name,
         'Phone': user.phone,
         'SessionString': string,
-        'AccessHash': user.access_hash
+        'AccessHash': user.access_hash,
+        'Active': True
     }
-    result = session.insert_one(post_data)
-
-    return result.inserted_id
-   
+    result = client['tool_database']['sessions'].insert_one(post_data)
+    return result._id

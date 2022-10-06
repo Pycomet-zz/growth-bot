@@ -1,4 +1,3 @@
-
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -7,11 +6,10 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -37,8 +35,8 @@
 </p>
 
 <!-- ABOUT THE PROJECT -->
-### About The Project
 
+### About The Project
 
 This is a custom built telegram bot script application to add users embedded in a User Friendly process oriented bot to handle the onbarding and smooth flow of the service provided. Which is extracting users from specified target groups and adding them into the user's own group.
 
@@ -54,7 +52,7 @@ NOW IS THE BOT'S TURN 🤓
 
 1.  Th first thing the bot does is fetch all the client sessions it has access to as preconfigured. All into a list.
 
-2. Using each of the sessions, one at a time. The bot used the client user to add the extracted user into the target group with a maximum of 50 on each client (Maximum number of adds per day).
+2.  Using each of the sessions, one at a time. The bot used the client user to add the extracted user into the target group with a maximum of 50 on each client (Maximum number of adds per day).
 
 The index is always registered to the runtime memory, so whichever the client that is used. The application is not going over the same users twice.
 
@@ -64,26 +62,26 @@ The index is always registered to the runtime memory, so whichever the client th
 
 This application is built with python entirely. With functionalities pulled from the telethon and PyTelegramBotAPI libraries.
 
-
 <!-- USAGE EXAMPLES -->
+
 ### Usage
 
 To use this application as your own, follow these simple steps;
 
-  - Fork this repository (`git clone https://github.com/Pycomet/growth-bot.git`)
+- Fork this repository (`git clone https://github.com/Pycomet/growth-bot.git`)
 
-  - Create a `.env` file with the following data
-    - `TOKEN` - This is the telegram bot token from `@botfather`
-    - `GROUP` - The target telegram group you wish to grow
-    - `API_ID` - Telegram api access details
-    - `API_HASH` - Telegram api access details
-    - `SERVER_URL` - Pre-defined web hook to be used for the app
-    - `ADMIN1` - Admin telegram ID for special access
+- Create a `.env` file with the following data
 
+  - `TOKEN` - This is the telegram bot token from `@botfather`
+  - `GROUP` - The target telegram group you wish to grow
+  - `API_ID` - Telegram api access details
+  - `API_HASH` - Telegram api access details
+  - `SERVER_URL` - Pre-defined web hook to be used for the app
+  - `ADMIN1` - Admin telegram ID for special access
 
-  - Goto `config.py` and set `DEBUG` to "True" to run locally and "False" to run in production (With involves following the deployment process)
+- Goto `config.py` and set `DEBUG` to "True" to run locally and "False" to run in production (With involves following the deployment process)
 
-  - Run the entrypoint file `python bot.py`
+- Run the entrypoint file `python bot.py`
 
 Enjoy!
 
@@ -92,13 +90,13 @@ Enjoy!
 Give a ⭐️ if this project helped you!
 
 <!-- ROADMAP -->
+
 ### Roadmap
 
 See the [open issues](https://github.com/Pycomet/growth-bot/issues) for a list of proposed features (and known issues).
 
-
-
 <!-- CONTRIBUTING -->
+
 ### Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -109,25 +107,23 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
 <!-- LICENSE -->
+
 ### License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
 <!-- CONTACT -->
+
 ### Contact
 
 Codefred - <a href="https://www.codefred.me">www.codefred.me</a>
 
-
-
+env -> (growthbotenv)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/Pycomet/growth-bot.svg?style=flat-square
 [contributors-url]: https://github.com/Pycomet/growth-bot/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Pycomet/growth-bot.svg?style=flat-square

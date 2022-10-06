@@ -1,7 +1,8 @@
 from config import *
-from functions import add_users
+from functions import add_users, fetch_sessions
 
 group = ""
+
 
 @bot.message_handler(commands=['start', 'Start'])
 def startbot(msg):
@@ -13,8 +14,8 @@ def startbot(msg):
             msg,
             emoji.emojize(
                 f":smile: Welcome back {msg.from_user.first_name}",
-                use_aliases=True
-                )
+                language='alias'
+            )
         )
 
         start_process(user=msg.from_user)
@@ -24,8 +25,8 @@ def startbot(msg):
             msg,
             emoji.emojize(
                 ":warning: Sorry but you are not allowed to use this tool. Contact @codefred to get started.",
-                use_aliases=True
-                )
+                language='alias'
+            )
         )
 
 
@@ -35,7 +36,7 @@ def start_process(user):
         user.id,
         emoji.emojize(
             "Where would you want today's group target to be? :speedboat: (use format - t.me/groupname)",
-            use_aliases=True
+            language='alias'
         )
     )
 
@@ -48,17 +49,17 @@ def joinGroup(msg):
     global group
 
     try:
-        group = msg.text   
+        group = msg.text
 
         # Ask Request
         question = bot.reply_to(
             msg,
             emoji.emojize(
                 "Where do you want to start? :speedboat: ",
-                use_aliases=True
+                language='alias'
             )
         )
-        bot.register_next_step_handler(question, startTool)   
+        bot.register_next_step_handler(question, startTool)
 
     except Exception as e:
 
@@ -73,60 +74,51 @@ def startTool(msg):
         msg.from_user.id,
         emoji.emojize(
             "Awesome! The Hunters Growth Tool Is Starting :rocket:",
-            use_aliases=True
+            language='alias'
         )
     )
 
-    # Collect all Session Strings
-    # SESSIONS = [sessions[i]['SessionString'] for i in range(sessions.count())]
-    # SESSION_USERS = [sessions[i]['first_name'] for i in range(sessions.count())]
-    # NEW VERSION SESSION STRINGS
-    SESSIONS = [
-
-    ]
-    SESSION_USERS = [
-        'Client 1',
-    ]
-
     # # Target group admins
     # admin_ids = [user.user.id for user in bot.get_chat_administrators(group)]
-    for session, user in zip(SESSIONS, SESSION_USERS):
+    # for session, user in zip(SESSIONS, SESSION_USERS):
+    session_data = fetch_sessions()
+    for (user, session) in session_data:
 
         message = bot.send_message(
             msg.from_user.id,
             emoji.emojize(
                 f":rocket: {user} just added 0 new users to the group with 0 failed attempts",
-                use_aliases=True
+                language='alias'
             ),
             parse_mode="html"
         )
         message_id = message.message_id
         chat_id = message.chat.id
         print(chat_id)
-        
+
         # Igniting the client instance
         loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
         client = TelegramClient(
             StringSession(session),
             API_ID,
             API_HASH,
-            loop = loop
+            loop=loop
         ).start()
-
 
         record = client.loop.run_until_complete(
             add_users(
-            bot = bot,
-            client = client,
-            target = group,
-            start = index,
-            message_id = message_id,
-            runner = user
+                bot=bot,
+                client=client,
+                target=group,
+                start=index,
+                message_id=message_id,
+                runner=user
             )
         )
-        
-        client.disconnect()
 
+        client.disconnect()
 
         if record == "Done":
 
@@ -134,11 +126,10 @@ def startTool(msg):
                 msg.from_user.id,
                 emoji.emojize(
                     f":rocket: Weblulue Support is done adding from this group.",
-                    use_aliases=True
+                    language='alias'
                 )
             )
             break
-
 
         else:
 
@@ -146,7 +137,7 @@ def startTool(msg):
                 msg.from_user.id,
                 emoji.emojize(
                     f"Done with this {user} client. Switching Gears Now !! :rocket:",
-                    use_aliases=True
+                    language='alias'
                 )
             )
             time.sleep(5)
