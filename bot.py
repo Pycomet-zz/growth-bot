@@ -4,7 +4,8 @@ from handlers import *
 
 @server.route('/' + TOKEN, methods=['POST', 'GET'])
 def checkWebhook():
-    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    bot.process_new_updates(
+        [telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "Your bot application is still active!", 200
 
 
@@ -18,7 +19,7 @@ def webhook():
 if __name__ == "__main__":
 
     if DEBUG == False:
-        server.run(host="0.0.0.0", threaded=True, port=int(os.environ.get('PORT', 5000)))
+        server.run(host="0.0.0.0", threaded=True)
     else:
         bot.remove_webhook()
         print("Bot running")
