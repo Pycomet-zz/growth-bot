@@ -4,7 +4,7 @@ from decouple import config
 import time
 import random
 # BOT CONFIGURATION
-from flask import Flask, request
+from fastapi import FastAPI, Depends
 import telebot
 from telebot import types
 import emoji
@@ -19,7 +19,7 @@ import logging
 logger = telebot.logger
 telebot.logger.setLevel(logging.INFO)
 
-DEBUG = False
+DEBUG = True
 
 GROUP = config("GROUP")
 
@@ -44,4 +44,4 @@ SERVER_URL = config("SERVER_URL")
 ADMINS = [int(config("ADMIN"))]
 
 bot = telebot.TeleBot(TOKEN)
-server = Flask(__name__)
+app = FastAPI(docs=None, redoc_url=None)
