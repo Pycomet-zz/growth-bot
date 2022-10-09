@@ -57,9 +57,6 @@ def generate_session(msg):
 
     user = client.loop.run_until_complete(client.get_me())
 
-    import pdb
-    pdb.set_trace()
-
     string = client.loop.run_until_complete(client.session.save())
 
     result = add_session(

@@ -1,3 +1,4 @@
+import logging
 import os
 from decouple import config
 import time
@@ -15,11 +16,10 @@ from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import AddContactRequest, ImportContactsRequest, DeleteContactsRequest
 
 import logging
-logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
-                    level=logging.WARNING)
+logger = telebot.logger
+telebot.logger.setLevel(logging.INFO)
 
-
-DEBUG = False
+DEBUG = True
 
 GROUP = config("GROUP")
 
