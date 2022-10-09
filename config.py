@@ -19,7 +19,7 @@ import logging
 logger = telebot.logger
 telebot.logger.setLevel(logging.INFO)
 
-DEBUG = True
+DEBUG = False
 
 GROUP = config("GROUP")
 
