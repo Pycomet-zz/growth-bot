@@ -23,6 +23,14 @@ from handlers import *
 
 @app.get("/")
 def pong():
+
+    # bot.delete_webhook()
+
+    bot.remove_webhook()
+    time.sleep(2)
+    bot.set_webhook(url=SERVER_URL + '/' + TOKEN)
+    logger.info(f"New webhook url set {SERVER_URL}/{TOKEN}")
+
     return {
         "status": "LIVE"
     }
@@ -40,11 +48,9 @@ def process_webhook(update: dict):
         return
 
 
-bot.remove_webhook()
-time.sleep(2)
-bot.set_webhook(url=SERVER_URL + '/' + TOKEN)
-logger.info(f"New webhook url set {SERVER_URL}/{TOKEN}")
+# bot.delete_webhook()
 
+# bot.infinity_polling()
 
 # if __name__ == "__main__":
 #     if DEBUG == False:
@@ -53,3 +59,29 @@ logger.info(f"New webhook url set {SERVER_URL}/{TOKEN}")
 #         bot.remove_webhook()
 #         print("Bot running")
 #         bot.polling(none_stop=True)
+
+
+@bot.message_handler(commands=['start', 'Start'])
+def startbot(msg):
+    """
+    Starting The Bot Dialog
+    """
+    if msg.from_user.id in ADMINS:
+        bot.reply_to(
+            msg,
+            emoji.emojize(
+                f":smile: Welcome back {msg.from_user.first_name}",
+                language='alias'
+            )
+        )
+
+        start_process(user=msg.from_user)
+
+    else:
+        bot.reply_to(
+            msg,
+            emoji.emojize(
+                ":warning: Sorry but you are not allowed to use this tool. Contact @codefred to get started.",
+                language='alias'
+            )
+        )
