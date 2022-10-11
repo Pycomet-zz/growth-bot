@@ -21,19 +21,19 @@ from handlers import *
 #     return "Application running!", 200
 
 
-@app.get("/")
-def pong():
+# @app.get("/")
+# def pong():
 
-    # bot.delete_webhook()
+#     # bot.delete_webhook()
 
-    bot.remove_webhook()
-    time.sleep(2)
-    bot.set_webhook(url=SERVER_URL + '/' + TOKEN)
-    logger.info(f"New webhook url set {SERVER_URL}/{TOKEN}")
+#     bot.remove_webhook()
+#     time.sleep(2)
+#     bot.set_webhook(url=SERVER_URL + '/' + TOKEN)
+#     logger.info(f"New webhook url set {SERVER_URL}/{TOKEN}")
 
-    return {
-        "status": "LIVE"
-    }
+#     return {
+#         "status": "LIVE"
+#     }
 
 
 @app.post(f'/{TOKEN}/')
@@ -48,9 +48,9 @@ def process_webhook(update: dict):
         return
 
 
-# bot.delete_webhook()
+bot.delete_webhook()
 
-# bot.infinity_polling()
+bot.infinity_polling()
 
 # if __name__ == "__main__":
 #     if DEBUG == False:
