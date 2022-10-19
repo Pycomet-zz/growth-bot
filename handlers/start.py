@@ -82,6 +82,9 @@ def startTool(msg):
     # admin_ids = [user.user.id for user in bot.get_chat_administrators(group)]
     # for session, user in zip(SESSIONS, SESSION_USERS):
     session_data = fetch_sessions()
+
+    # import pdb
+    # pdb.set_trace()
     for (user, session) in session_data:
 
         message = bot.send_message(
@@ -117,6 +120,8 @@ def startTool(msg):
                 runner=user
             )
         )
+
+        index += 50
 
         client.disconnect()
 

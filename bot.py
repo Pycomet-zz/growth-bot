@@ -47,9 +47,11 @@ def process_webhook(update: dict):
         return
 
 
-# bot.delete_webhook()
+webhook_info = bot.get_webhook_info()
+if webhook_info.url:
+    bot.delete_webhook()
 
-# bot.infinity_polling()
+bot.infinity_polling()
 
 # if __name__ == "__main__":
 #     if DEBUG == False:
@@ -58,29 +60,3 @@ def process_webhook(update: dict):
 #         bot.remove_webhook()
 #         print("Bot running")
 #         bot.polling(none_stop=True)
-
-
-@bot.message_handler(commands=['start', 'Start'])
-def startbot(msg):
-    """
-    Starting The Bot Dialog
-    """
-    if msg.from_user.id in ADMINS:
-        bot.reply_to(
-            msg,
-            emoji.emojize(
-                f":smile: Welcome back {msg.from_user.first_name}",
-                language='alias'
-            )
-        )
-
-        start_process(user=msg.from_user)
-
-    else:
-        bot.reply_to(
-            msg,
-            emoji.emojize(
-                ":warning: Sorry but you are not allowed to use this tool. Contact @codefred to get started.",
-                language='alias'
-            )
-        )

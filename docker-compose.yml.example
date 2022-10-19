@@ -1,0 +1,20 @@
+version: '3.9'
+
+
+services:
+  web:
+    build: .
+    command: uvicorn bot:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    volumes:
+      - ./:./
+    ports:
+      - 8004:8000
+    environment:
+      ENVIRONMENT: dev
+      TESTING: 0
+      MONGODB_URL: mongodb+srv://hunters_user:hunters@cluster0.fj4um.mongodb.net/?retryWrites=true&w=majority
+      ADMIN: 5257089676
+      TOKEN: 1352730431:AAH_sh_pHj_-AGxKE-6bGuwu78xoXMWmI9k
+      GROUP: https://t.me/archoptions
+      API_ID: 18823342
+      API_HASH: f38dad41747ee3c6a6374ec03f081e3f
