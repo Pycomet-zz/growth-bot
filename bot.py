@@ -27,15 +27,13 @@ def pong():
     # bot.delete_webhook()
 
     bot.remove_webhook()
-    bot.set_webhook(url=SERVER_URL + '/' + TOKEN)
+    bot.set_webhook(url=SERVER_URL + "/" + TOKEN)
     logger.info(f"New webhook url set {SERVER_URL}/{TOKEN}")
 
-    return {
-        "status": "LIVE"
-    }
+    return {"status": "LIVE"}
 
 
-@app.post(f'/{TOKEN}/')
+@app.post(f"/{TOKEN}/")
 def process_webhook(update: dict):
     """
     Process webhook calls

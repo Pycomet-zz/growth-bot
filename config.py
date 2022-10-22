@@ -3,6 +3,7 @@ import os
 from decouple import config
 import time
 import random
+
 # BOT CONFIGURATION
 from fastapi import FastAPI, Depends
 import telebot
@@ -13,9 +14,14 @@ import asyncio
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.tl.types import InputPhoneContact
-from telethon.tl.functions.contacts import AddContactRequest, ImportContactsRequest, DeleteContactsRequest
+from telethon.tl.functions.contacts import (
+    AddContactRequest,
+    ImportContactsRequest,
+    DeleteContactsRequest,
+)
 
 import logging
+
 logger = telebot.logger
 telebot.logger.setLevel(logging.INFO)
 

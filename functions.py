@@ -4,7 +4,12 @@ from telethon.tl.types import PeerChat
 from telethon.tl.functions.messages import AddChatUserRequest
 from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.functions.channels import JoinChannelRequest
-from telethon.errors.rpcerrorlist import UserPrivacyRestrictedError, PeerFloodError, UserNotMutualContactError, UserChannelsTooMuchError
+from telethon.errors.rpcerrorlist import (
+    UserPrivacyRestrictedError,
+    PeerFloodError,
+    UserNotMutualContactError,
+    UserChannelsTooMuchError,
+)
 
 
 def check_user(user):
@@ -71,10 +76,7 @@ async def add_users(bot, client, target, start, message_id, runner):
                 if user:
                     try:
                         # Second, Add User To Group
-                        await client(InviteToChannelRequest(
-                            group,
-                            [member]
-                        ))
+                        await client(InviteToChannelRequest(group, [member]))
 
                         added += 1
 
@@ -84,7 +86,7 @@ async def add_users(bot, client, target, start, message_id, runner):
                             message_id=message_id,
                             text=emoji.emojize(
                                 f"<b>:rocket: {runner} added {added} new users to the group. And has {stopped} failed attempts</b>",
-                                language='alias'
+                                language="alias",
                             ),
                             parse_mode="html",
                         )
@@ -106,7 +108,7 @@ async def add_users(bot, client, target, start, message_id, runner):
                             message_id=message_id,
                             text=emoji.emojize(
                                 f"<b>:rocket: {runner} added {added} new users to the group, with {stopped} failed attempts. Cooling Down For 30 seconds!!!</b>",
-                                language='alias'
+                                language="alias",
                             ),
                             parse_mode="html",
                         )
@@ -128,23 +130,22 @@ async def add_users(bot, client, target, start, message_id, runner):
 
 def fetch_sessions() -> list:
     "Get All (Name, Session) from Db"
-    response = client['tool_database']['sessions'].find({})
-    data = [(each['FirstName'], each['SessionString'])
-            for each in response if each['Active'] == True]
+    response = client["tool_database"]["sessions"].find({})
+    data = [
+        (each["FirstName"], each["SessionString"])
+        for each in response
+        if each["Active"] == True
+    ]
     return data
 
 
 def deactivate_session(session: str) -> bool:
     "Sets The Active Property To 'False'"
-    res = client['tool_database']['sessions'].find_one(
-        {'SessionString': session})
+    res = client["tool_database"]["sessions"].find_one({"SessionString": session})
 
     if res != None:
-        client['tool_database']['sessions'].update_one(
-            {'SessionString': session},
-            {"$set": {
-                'Active': False
-            }}
+        client["tool_database"]["sessions"].update_one(
+            {"SessionString": session}, {"$set": {"Active": False}}
         )
         print("Session deactivated!")
         return True
@@ -154,13 +155,10 @@ def deactivate_session(session: str) -> bool:
 
 def activate_all_sessions():
     "Updates all sessions to active state"
-    res = client['tool_database']['sessions'].find({})
+    res = client["tool_database"]["sessions"].find({})
     for session in res:
-        client['tool_database']['sessions'].update_one(
-            {'SessionString': session},
-            {"$set": {
-                'Active': True
-            }}
+        client["tool_database"]["sessions"].update_one(
+            {"SessionString": session}, {"$set": {"Active": True}}
         )
         print("Session activated!")
     return True, res.count()
@@ -170,13 +168,13 @@ def add_session(user, string) -> str:
     "Adding A New Session String To The Database"
     # Send Session To DB
     post_data = {
-        'id': user.id,
-        'Owner': user.username,
-        'FirstName': user.first_name,
-        'Phone': user.phone,
-        'SessionString': string,
-        'AccessHash': user.access_hash,
-        'Active': True
+        "id": user.id,
+        "Owner": user.username,
+        "FirstName": user.first_name,
+        "Phone": user.phone,
+        "SessionString": string,
+        "AccessHash": user.access_hash,
+        "Active": True,
     }
-    result = client['tool_database']['sessions'].insert_one(post_data)
+    result = client["tool_database"]["sessions"].insert_one(post_data)
     return result._id
