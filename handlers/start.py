@@ -1,5 +1,5 @@
 from config import *
-from functions import add_users, fetch_sessions
+from functions import add_users, deactivate_session, fetch_sessions
 
 group = ""
 
@@ -145,4 +145,4 @@ def startTool(msg):
                     language='alias'
                 )
             )
-            time.sleep(5)
+            deactivate_session(session=session)

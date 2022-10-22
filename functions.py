@@ -134,6 +134,38 @@ def fetch_sessions() -> list:
     return data
 
 
+def deactivate_session(session: str) -> bool:
+    "Sets The Active Property To 'False'"
+    res = client['tool_database']['sessions'].find_one(
+        {'SessionString': session})
+
+    if res != None:
+        client['tool_database']['sessions'].update_one(
+            {'SessionString': session},
+            {"$set": {
+                'Active': False
+            }}
+        )
+        print("Session deactivated!")
+        return True
+    else:
+        return False
+
+
+def activate_all_sessions():
+    "Updates all sessions to active state"
+    res = client['tool_database']['sessions'].find({})
+    for session in res:
+        client['tool_database']['sessions'].update_one(
+            {'SessionString': session},
+            {"$set": {
+                'Active': True
+            }}
+        )
+        print("Session activated!")
+    return True, res.count()
+
+
 def add_session(user, string) -> str:
     "Adding A New Session String To The Database"
     # Send Session To DB
