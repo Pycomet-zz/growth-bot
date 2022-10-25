@@ -141,7 +141,8 @@ def fetch_sessions() -> list:
 
 def deactivate_session(session: str) -> bool:
     "Sets The Active Property To 'False'"
-    res = client["tool_database"]["sessions"].find_one({"SessionString": session})
+    res = client["tool_database"]["sessions"].find_one(
+        {"SessionString": session})
 
     if res != None:
         client["tool_database"]["sessions"].update_one(
@@ -156,12 +157,14 @@ def deactivate_session(session: str) -> bool:
 def activate_all_sessions():
     "Updates all sessions to active state"
     res = client["tool_database"]["sessions"].find({})
+    count = 0
     for session in res:
+        count += 1
         client["tool_database"]["sessions"].update_one(
             {"SessionString": session}, {"$set": {"Active": True}}
         )
         print("Session activated!")
-    return True, res.count()
+    return True, count
 
 
 def add_session(user, string) -> str:
